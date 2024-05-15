@@ -13,8 +13,12 @@ const loadNextPage = async () => {
   state.users = users;
 };
 
-const loadPreviusPage = async () => {
-  throw new Error("No implementado");
+const loadPreviousPage = async () => {
+  const users = await loadUsersByPage(state.currentPage - 1);
+
+  if (users.length === 1) return;
+  state.currentPage -= 1;
+  state.users = users;
 };
 
 const onUserChange = async () => {
@@ -23,7 +27,7 @@ const onUserChange = async () => {
 
 export default {
   loadNextPage,
-  loadPreviusPage,
+  loadPreviousPage,
   onUserChange,
 
   getUsers: () => [...state.users],
